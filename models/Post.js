@@ -6,7 +6,7 @@ const PostSchema = new Schema({
   avatar: {
     type: String
   },
-  comment: [
+  comments: [
     {
       avatar: {
         type: String
