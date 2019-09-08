@@ -20,10 +20,11 @@ router.get('/', (req, res) => {
   res.json({ msg: 'Users Works' });
 });
 
-// @route GET api/users/registration
+// @route POST api/users/register
 // @desc Register user
 // @access Public
 router.post('/register', (req, res) => {
+  console.log('HERE');
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check validation of body
@@ -61,7 +62,6 @@ router.post('/register', (req, res) => {
             .save()
             .then((user) => res.json(user))
             .catch((err) => {
-              console.log('batman');
               console.log(err);
             });
         });
