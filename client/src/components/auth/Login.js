@@ -17,13 +17,22 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    // Route to dashboard when already logged in
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
+
   componentDidUpdate() {
+    // Route to dashboard after successful login
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
+    // Render errors as they are updated in props
     if (nextProps.errors) {
       return { errors: nextProps.errors };
     }

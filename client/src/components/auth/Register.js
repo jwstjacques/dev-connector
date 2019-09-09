@@ -20,6 +20,13 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    // Route to dashboard after successful login
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
+
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.errors) {
       return { errors: nextProps.errors };
