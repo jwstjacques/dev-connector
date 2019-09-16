@@ -8,7 +8,6 @@ module.exports = function validateExperienceInput(data) {
   data.from = !isEmpty(data.from) ? data.from : '';
   data.title = !isEmpty(data.title) ? data.title : '';
 
-  console.log(data);
   if (Validator.isEmpty(data.company)) {
     errors.company = 'Company field is required';
   }
