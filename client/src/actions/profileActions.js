@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-import { CLEAR_CURRENT_PROFILE, GET_PROFILE, PROFILE_LOADING } from './types';
+import {
+  CLEAR_CURRENT_PROFILE,
+  GET_PROFILE,
+  PROFILE_LOADING,
+  GET_ERRORS,
+  SET_CURRENT_USER
+} from './types';
 
 // Get current profile
 export const getCurrentProfile = () => (dispatch) => {
@@ -19,6 +25,39 @@ export const getCurrentProfile = () => (dispatch) => {
         payload: {}
       });
     });
+};
+
+// Create Profile
+export const createProfile = (profileData, history) => (dispatch) => {
+  axios
+    .post('/api/profile/', profileData)
+    .then((res) => history.push('/dashboard'))
+    .catch((err) =>
+      dispatch({
+        payload: err.response.data,
+        type: GET_ERRORS
+      })
+    );
+};
+
+// Delete account & profile
+export const deleteAccount = () => (dispatch) => {
+  if (window.confirm('Are you sure?  This can NOT be undone!')) {
+    axios
+      .delete('/api/profile')
+      .then((res) => {
+        dispatch({
+          payload: {},
+          type: SET_CURRENT_USER
+        });
+      })
+      .catch((err) =>
+        dispatch({
+          payload: err.response.data,
+          type: GET_ERRORS
+        })
+      );
+  }
 };
 
 // Profile load
